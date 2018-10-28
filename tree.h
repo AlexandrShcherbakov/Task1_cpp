@@ -7,7 +7,8 @@ namespace bintree {
     struct TNode {
         using TNodePtr = std::shared_ptr<TNode<T>>;
         using TNodeConstPtr = std::shared_ptr<const TNode<T>>;
-        using TNodeParentPtr = TNode<T>*;
+        // Types for pointer to parent node.
+        using TNodeParentPtr = TNode<T>*; 
         using TNodeParentConstPtr = const TNode<T>*;
 
         bool hasLeft() const {
@@ -55,11 +56,11 @@ namespace bintree {
         }
 
         static TNodePtr createLeaf(T v) {
-            return std::shared_ptr<TNode>(new TNode(v));
+            return std::shared_ptr<TNode>(new TNode(v)); // Create node in class and put raw pointer to shared_ptr constructor
         }
 
         static TNodePtr fork(T v, TNodePtr left, TNodePtr right) {
-            TNodePtr ptr = std::shared_ptr<TNode>(new TNode(v, left, right));
+            TNodePtr ptr = std::shared_ptr<TNode>(new TNode(v, left, right)); // Create node in class and put raw pointer to shared_ptr constructor
             setParent(ptr->getLeft(), ptr);
             setParent(ptr->getRight(), ptr);
             return ptr;
@@ -98,7 +99,7 @@ namespace bintree {
         T value;
         TNodePtr left = nullptr;
         TNodePtr right = nullptr;
-        TNodeParentPtr parent;
+        TNodeParentPtr parent; // Save parent as raw pointer
 
         TNode(T v)
             : value(v)
